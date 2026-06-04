@@ -1,6 +1,7 @@
-class Tabelas {
-  init(conexao) {
-    this.conexao = conexao;
+class Tables {
+    private connection:any
+  init(connection:any) {
+    this.connection = connection;
     this.createTableUser()
     this.createTableAnimal()
     this.createTableAnimalImages()
@@ -20,7 +21,7 @@ class Tabelas {
             updated_at TIMESTAMP NULL DEFAULT NULL
         );
         `;
-        this.conexao.query(sql,(error)=>{
+        this.connection.query(sql,(error:any)=>{
             if(error){
                 console.log(error.message())
                 return
@@ -59,7 +60,7 @@ class Tabelas {
         FOREIGN KEY (user_id) REFERENCES users(id)
     );
     `;
-    this.conexao.query(sql,(error)=>{
+    this.connection.query(sql,(error:any)=>{
             if(error){
                 console.log(error.message())
                 return
@@ -76,7 +77,7 @@ class Tabelas {
         FOREIGN KEY (animal_id) REFERENCES animals(id)
     );
     `;
-    this.conexao.query(sql,(error)=>{
+    this.connection.query(sql,(error:any)=>{
             if(error){
                 console.log(error.message())
                 return
@@ -101,7 +102,7 @@ class Tabelas {
         )
   
     `;
-    this.conexao.query(sql,(error)=>{
+    this.connection.query(sql,(error:any)=>{
             if(error){
                 console.log(error.message())
                 return
@@ -111,4 +112,4 @@ class Tabelas {
   }
 }
 
-module.exports = new Tabelas()
+export default new Tables();

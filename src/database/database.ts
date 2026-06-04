@@ -7,4 +7,4 @@ const connection = mysql.createConnection({
     database:"desld" //Pode mudar dependendo de como você configurou
 })
 
-module.exports = connection
+export default connection
