@@ -42,7 +42,7 @@ class Tables {
 
         status ENUM('missing', 'found', 'reunited') NOT NULL DEFAULT 'missing',
 
-        gender ENUM('male', 'female') NOT NULL,
+        gender ENUM('male', 'female'),
 
         age INT,
 

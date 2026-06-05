@@ -7,6 +7,7 @@ const port = 4000
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
+app.use('/uploads', express.static('uploads'))
 
 tables.init(connection)
 router(app)

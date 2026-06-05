@@ -1,6 +1,7 @@
 import { Router,Request,Response } from 'express';
 import { CreateUser } from '../controllers/user/type';
 import userController from '../controllers/user/userController';
+import { validateId } from './middleware';
 const routerUser = Router();
 
 // GET ALL
@@ -17,10 +18,16 @@ routerUser.get('/user', async (req: Request, res: Response) => {
 });
 
 // GET ID
-routerUser.get('/user/:id', async (req: Request, res: Response) => {
+routerUser.get('/user/:id',validateId, async (req: Request, res: Response) => {
     try {
         const {id} = req.params
         const result = await userController.userGetId(Number(id));
+
+        if(!result){
+            return res.status(404).json({
+                message:"User not found"
+            })
+        }
 
         return res.status(200).json(result);
     } catch (error) {

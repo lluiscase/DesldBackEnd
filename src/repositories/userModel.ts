@@ -28,7 +28,7 @@ class UserModel {
           return;
         }
         console.log("Listagem de usuario");
-        resolve(results);
+        resolve(results[0]||null);
       });
     });
   }
