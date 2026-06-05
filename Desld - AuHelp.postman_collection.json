@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "8e19dc24-ced5-401e-b927-d953a48c4468",
-    "name": "Desld - AuHelp",
+    "_postman_id": "7cdfad33-4653-4ba8-a708-f2df794356b6",
+    "name": "Desld - AuHelp Copy",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "47572691",
-    "_collection_link": "https://go.postman.co/collection/47572691-8e19dc24-ced5-401e-b927-d953a48c4468?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/47572691-7cdfad33-4653-4ba8-a708-f2df794356b6?source=collection_link"
   },
   "item": [
     {
@@ -14,7 +14,25 @@
           "name": "Create User",
           "request": {
             "method": "POST",
-            "header": []
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"João Silva\", // Campo obrigatorio\r\n  \"email\": \"joao@email.com\", //Campo Obrigatorio e deve ser unico, ou seja, só pode existir um email desse dentro do sistema\r\n  \"password\": \"123456\", //Campo Obrigatorio\r\n  \"phone_number\": \"11999999999\",\r\n  \"active\": true //Default sempre true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/user",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "user"
+              ]
+            }
           },
           "response": []
         },
@@ -22,7 +40,32 @@
           "name": "Update User",
           "request": {
             "method": "PUT",
-            "header": []
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"João Silva\", // Campo obrigatorio\r\n  \"email\": \"joao@email.com\", //Campo Obrigatorio e deve ser unico, ou seja, só pode existir um email desse dentro do sistema\r\n  \"password\": \"123456\", //Campo Obrigatorio\r\n  \"phone_number\": \"11999999999\",\r\n  \"active\": true //Default sempre true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/user/:id",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "user",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "9"
+                }
+              ]
+            }
           },
           "response": []
         },
@@ -30,7 +73,23 @@
           "name": "Delete User",
           "request": {
             "method": "DELETE",
-            "header": []
+            "header": [],
+            "url": {
+              "raw": "{{url}}/user/:id",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "user",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "2"
+                }
+              ]
+            }
           },
           "response": []
         },
@@ -38,7 +97,23 @@
           "name": "GetById User",
           "request": {
             "method": "GET",
-            "header": []
+            "header": [],
+            "url": {
+              "raw": "{{url}}/user/:id",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "user",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "9"
+                }
+              ]
+            }
           },
           "response": []
         },
@@ -46,7 +121,16 @@
           "name": "GetAll User",
           "request": {
             "method": "GET",
-            "header": []
+            "header": [],
+            "url": {
+              "raw": "{{url}}/user",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "user"
+              ]
+            }
           },
           "response": []
         }
@@ -54,7 +138,372 @@
     },
     {
       "name": "Animal",
-      "item": []
+      "item": [
+        {
+          "name": "Location",
+          "item": [
+            {
+              "name": "GetAll Location",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/location-animal/:id",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "location-animal",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "3"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetById Location",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/location-animal/:id",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "location-animal",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "3"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Location",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"animal_id\": 3, //Obrigatorio\r\n    \"zip\": \"04944050\",\r\n    \"state\": \"SP\",\r\n    \"city\": \"São Paulo\",\r\n    \"county\": \"Pq.do.Lago\",\r\n    \"latitude\": -23.55052000, //Campo para ajudar o front a buscar no mapa\r\n    \"longitude\": -46.63330800, //Campo para ajudar o front a buscar no mapa\r\n    \"observation_date\": \"2026-06-05 14:30:00\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/location-animal",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "location-animal"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Location",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"zip\": \"01001000\",\r\n    \"state\": \"SP\",\r\n    \"city\": \"São Paulo\",\r\n    \"county\": \"Centro\",\r\n    \"latitude\": -23.55052000, //Campo para ajudar o front a buscar no mapa\r\n    \"longitude\": -46.63330800, //Campo para ajudar o front a buscar no mapa\r\n    \"observation_date\": \"2026-06-05 14:30:00\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/location-animal/:id",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "location-animal",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Location",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"zip\": \"01001000\",\r\n    \"state\": \"SP\",\r\n    \"city\": \"São Paulo\",\r\n    \"county\": \"Centro\",\r\n    \"latitude\": -23.55052000, //Campo para ajudar o front a buscar no mapa\r\n    \"longitude\": -46.63330800, //Campo para ajudar o front a buscar no mapa\r\n    \"observation_date\": \"2026-06-05 14:30:00\"\r\n}"
+                },
+                "url": {
+                  "raw": "{{url}}/location-animal/:id",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "location-animal",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Create Animal",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"user_id\": 9, //Obrigatorio, retorna sempre no login\r\n    \"name\": \"Rex\", //Obrigatorio\r\n    \"species\": \"dog\", //Obrigatorio\r\n    \"status\": \"missing\", //Campo obrigatorio, um Enum entre (missing,found,reunited) sendo default missing\r\n    \"gender\": \"male\", //Um Enum Entre (male,female) \r\n    \"age\": 3, \r\n    \"size\": \"medium\", \r\n    \"color\": \"brown\",\r\n    \"description\": \"Cachorro caramelo desaparecido nas redondezas do bairro.\",\r\n    \"missing_date\": \"2026-06-05 14:30:00\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/animal",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "animal"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Animal",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\r\n    \"status\": \"reunited\"//Campo obrigatorio, um Enum entre (missing,found,reunited) sendo default missing\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/animal/:id",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "animal",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "4"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetAll Animal",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"user_id\": 9, //Obrigatorio, retorna sempre no login\r\n    \"name\": \"Rex\", //Obrigatorio\r\n    \"species\": \"dog\", //Obrigatorio\r\n    \"status\": \"missing\", //Campo obrigatorio, um Enum entre (missing,found,reunited) sendo default missing\r\n    \"gender\": \"male\", //Um Enum Entre (male,female) \r\n    \"age\": 3, \r\n    \"size\": \"medium\", \r\n    \"color\": \"brown\",\r\n    \"description\": \"Cachorro caramelo desaparecido nas redondezas do bairro.\",\r\n    \"missing_date\": \"2026-06-05 14:30:00\"\r\n}"
+            },
+            "url": {
+              "raw": "{{url}}/animal",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "animal"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Animal",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{url}}/animal/:id",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "animal",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetById Animal",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"user_id\": 9, //Obrigatorio, retorna sempre no login\r\n    \"name\": \"Rex\", //Obrigatorio\r\n    \"species\": \"dog\", //Obrigatorio\r\n    \"status\": \"missing\", //Campo obrigatorio, um Enum entre (missing,found,reunited) sendo default missing\r\n    \"gender\": \"male\", //Um Enum Entre (male,female) \r\n    \"age\": 3, \r\n    \"size\": \"medium\", \r\n    \"color\": \"brown\",\r\n    \"description\": \"Cachorro caramelo desaparecido nas redondezas do bairro.\",\r\n    \"missing_date\": \"2026-06-05 14:30:00\"\r\n}"
+            },
+            "url": {
+              "raw": "{{url}}/animal/:id",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "animal",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Image Animal",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "image_url",
+                  "description": "Campo Obrigatorio",
+                  "type": "file",
+                  "uuid": "b6dfcd5a-99cc-4dfe-8dcc-492e0611f5b4",
+                  "src": "/C:/Users/Case/Pictures/Screenshots/Captura de tela 2025-08-29 144703.png"
+                },
+                {
+                  "key": "animal_id",
+                  "value": "2",
+                  "description": "Campo Obrigatorio",
+                  "type": "text",
+                  "uuid": "e3b3183d-2dce-4429-8b45-3babdd3e6ec6"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{url}}/image-animal",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "image-animal"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Image",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "image_url",
+                  "description": "Campo Obrigatorio",
+                  "type": "file",
+                  "uuid": "b6dfcd5a-99cc-4dfe-8dcc-492e0611f5b4",
+                  "src": "/C:/Users/Case/Pictures/Screenshots/Captura de tela 2025-08-29 144703.png"
+                },
+                {
+                  "key": "animal_id",
+                  "value": "2",
+                  "description": "Campo Obrigatorio",
+                  "type": "text",
+                  "uuid": "e3b3183d-2dce-4429-8b45-3babdd3e6ec6"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{url}}/image-animal/:id",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "image-animal",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     },
     {
       "name": "login AuHelp",
@@ -63,7 +512,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"email\":\"luishenriqsa@gmail.com\",\r\n    \"password\":\"6123\"\r\n}",
+          "raw": "{\r\n    \"email\":\"joao@email.com\",\r\n    \"password\":\"123456\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -77,6 +526,30 @@
           ],
           "path": [
             "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Notification",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{url}}/notification/:id",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "notification",
+            ":id"
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "5"
+            }
           ]
         }
       },

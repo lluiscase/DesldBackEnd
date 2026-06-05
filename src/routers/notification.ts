@@ -1,10 +1,10 @@
 import { Router } from "express";
 import notificationController from "../controllers/notification/notificationController"; 
 
-const routerLogin = Router();
+const routerNotification = Router();
 
 //post
-routerLogin.get("/notification/:id", async (req, res) => {
+routerNotification.get("/notification/:id", async (req, res) => {
   try {
     const id = req.params.id
     const result = await notificationController.animalGetId(Number(id));
@@ -16,4 +16,4 @@ routerLogin.get("/notification/:id", async (req, res) => {
   }
 });
 
-export default routerLogin;
+export default routerNotification;
