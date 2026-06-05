@@ -1,11 +1,12 @@
 class Tables {
-    private connection:any
-  init(connection:any) {
+  private connection: any;
+  init(connection: any) {
     this.connection = connection;
-    this.createTableUser()
-    this.createTableAnimal()
-    this.createTableAnimalImages()
-    this.createTableAnimalLocation()
+    this.createTableUser();
+    this.createTableAnimal();
+    this.createTableAnimalImages();
+    this.createTableAnimalLocation();
+    this.createTableNotification();
   }
 
   createTableUser() {
@@ -21,13 +22,13 @@ class Tables {
             updated_at TIMESTAMP NULL DEFAULT NULL
         );
         `;
-        this.connection.query(sql,(error:any)=>{
-            if(error){
-                console.log(error.message)
-                return
-            }
-            console.log('Create Table USERS')
-        })
+    this.connection.query(sql, (error: any) => {
+      if (error) {
+        console.log(error.message);
+        return;
+      }
+      console.log("Create Table USERS");
+    });
   }
 
   createTableAnimal() {
@@ -60,13 +61,13 @@ class Tables {
         FOREIGN KEY (user_id) REFERENCES users(id)
     );
     `;
-    this.connection.query(sql,(error:any)=>{
-            if(error){
-                console.log(error.message)
-                return
-            }
-            console.log('Create Table Animal')
-        })
+    this.connection.query(sql, (error: any) => {
+      if (error) {
+        console.log(error.message);
+        return;
+      }
+      console.log("Create Table Animal");
+    });
   }
   createTableAnimalImages() {
     const sql = `
@@ -77,13 +78,13 @@ class Tables {
         FOREIGN KEY (animal_id) REFERENCES animals(id)
     );
     `;
-    this.connection.query(sql,(error:any)=>{
-            if(error){
-                console.log(error.message)
-                return
-            }
-            console.log('Create Table Animal Image')
-        })
+    this.connection.query(sql, (error: any) => {
+      if (error) {
+        console.log(error.message);
+        return;
+      }
+      console.log("Create Table Animal Image");
+    });
   }
 
   createTableAnimalLocation() {
@@ -102,13 +103,33 @@ class Tables {
         )
   
     `;
-    this.connection.query(sql,(error:any)=>{
-            if(error){
-                console.log(error.message)
-                return
-            }
-            console.log('Create Table Animal Location')
-        })
+    this.connection.query(sql, (error: any) => {
+      if (error) {
+        console.log(error.message);
+        return;
+      }
+      console.log("Create Table Animal Location");
+    });
+  }
+
+  createTableNotification() {
+    const sql = `
+        CREATE TABLE IF NOT EXISTS notification(
+            id int AUTO_INCREMENT PRIMARY KEY,
+            animal_id INT NOT NULL,
+            type ENUM('location_added', 'status_changed'),
+            message VARCHAR(255),
+            created_at TIMESTAMP not null DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (animal_id) REFERENCES animals(id)
+        );
+    `;
+    this.connection.query(sql, (error: any) => {
+      if (error) {
+        console.log(error.message);
+        return;
+      }
+      console.log("Create Table Notification");
+    });
   }
 }
 

@@ -1,4 +1,5 @@
 import { animal } from "../../../controllers/animal/main/type";
+import notificationController from "../../../controllers/notification/notificationController";
 import connection from "../../../database/database";
 class animalModel {
   getAll() {
@@ -16,7 +17,7 @@ class animalModel {
     });
   }
 
-  getId(id: number) {
+  getId(id: number):Promise<animal|null> {
     const sql =
       "SELECT a.*, ai.id AS image_id, ai.image_url, al.id AS location_id, al.zip, al.state, al.city, al.county, al.latitude, al.longitude, al.observation_date FROM animals a LEFT JOIN animal_images ai  ON ai.animal_id = a.id LEFT JOIN animal_locations al  ON al.animal_id = a.id WHERE a.id = ?";
     return new Promise((resolve, reject) => {
@@ -93,15 +94,26 @@ class animalModel {
       }
     });
   }
-  update(animal: animal, id: number) {
+
+  async update(animal: animal, id: number) {
     const sql = "UPDATE animals SET ? WHERE id= ?";
+    const oldAnimal:animal|null = await this.getId(id)
     return new Promise((resolve, reject) => {
-      connection.query(sql, [animal, id], (error: any, results: any) => {
+      connection.query(sql, [animal, id], async (error: any, results: any) => {
         if (error) {
           console.log("animal não atualizou", error.message);
           reject(error);
           return;
         }
+
+        if(oldAnimal?.status !== animal.status){
+          await notificationController.animalCreate({
+            animal_id:id,
+            type:'status_changed',
+            message:`Status do ${oldAnimal?.name} foi mudado`
+          })
+        }
+        
         console.log("animal atualizou");
         resolve(results);
       });
@@ -122,6 +134,7 @@ class animalModel {
       });
     });
   }
+
 }
 
 export default new animalModel();
