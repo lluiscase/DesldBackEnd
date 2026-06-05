@@ -1,4 +1,4 @@
-import { CreateUser, User } from "./type"
+import { CreateUser} from "./type"
 import userModel from '../../repositories/userModel';
 class UserController{
     usersGet(){
@@ -6,6 +6,9 @@ class UserController{
     }
     userGetId(id:number){
         return userModel.getId(id)
+    }
+    userGetEmail(email:string){
+        return userModel.getByEmail(email)
     }
     userCreate(newUser:CreateUser): Promise<unknown>{
         return userModel.create(newUser)

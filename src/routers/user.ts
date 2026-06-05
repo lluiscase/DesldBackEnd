@@ -1,10 +1,10 @@
 import { Router,Request,Response } from 'express';
 import { CreateUser } from '../controllers/user/type';
 import userController from '../controllers/user/userController';
-const router = Router();
+const routerUser = Router();
 
 // GET ALL
-router.get('/user', async (req: Request, res: Response) => {
+routerUser.get('/user', async (req: Request, res: Response) => {
     try {
         const result = await userController.usersGet();
 
@@ -17,9 +17,10 @@ router.get('/user', async (req: Request, res: Response) => {
 });
 
 // GET ID
-router.get('/user/:id', async (req: Request, res: Response) => {
+routerUser.get('/user/:id', async (req: Request, res: Response) => {
     try {
-        const result = await userController.usersGet();
+        const {id} = req.params
+        const result = await userController.userGetId(Number(id));
 
         return res.status(200).json(result);
     } catch (error) {
@@ -30,7 +31,7 @@ router.get('/user/:id', async (req: Request, res: Response) => {
 });
 
 // POST
-router.post('/user', async (req: Request, res: Response) => {
+routerUser.post('/user', async (req: Request, res: Response) => {
     try {
         const newUser: CreateUser = req.body;
 
@@ -45,7 +46,7 @@ router.post('/user', async (req: Request, res: Response) => {
 });
 
 //PUT
-router.put('/user/:id', async (req: Request, res: Response) => {
+routerUser.put('/user/:id', async (req: Request, res: Response) => {
     try {
         const {id} = req.params
         const userUpdated = req.body
@@ -60,7 +61,7 @@ router.put('/user/:id', async (req: Request, res: Response) => {
 });
 
 //DELETE
-router.delete('/user/:id',async(req:Request,res:Response)=>{
+routerUser.delete('/user/:id',async(req:Request,res:Response)=>{
     try{
         const {id} = req.params
         const result = await userController.userDelete(Number(id))
@@ -72,4 +73,4 @@ router.delete('/user/:id',async(req:Request,res:Response)=>{
     }
 })
 
-export default router;
+export default routerUser;
