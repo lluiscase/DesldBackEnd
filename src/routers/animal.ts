@@ -1,5 +1,4 @@
 import { Router,Request,Response } from 'express';
-import { animal } from '../controllers/animal/main/type';
 import mainController from '../controllers/animal/main/mainController';
 import { upload, validateId } from './middleware';
 import imageController from '../controllers/animal/image/imageController';
@@ -69,6 +68,7 @@ routerAnimal.post('/animal', async (req: Request, res: Response) => {
         });
     }
 });
+
 
 //POST IMAGE
 routerAnimal.post('/image-animal', upload.single('image'),async(req,res)=>{
