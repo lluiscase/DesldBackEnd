@@ -23,7 +23,7 @@ class Tables {
         `;
         this.connection.query(sql,(error:any)=>{
             if(error){
-                console.log(error.message())
+                console.log(error.message)
                 return
             }
             console.log('Create Table USERS')
@@ -62,7 +62,7 @@ class Tables {
     `;
     this.connection.query(sql,(error:any)=>{
             if(error){
-                console.log(error.message())
+                console.log(error.message)
                 return
             }
             console.log('Create Table Animal')
@@ -79,7 +79,7 @@ class Tables {
     `;
     this.connection.query(sql,(error:any)=>{
             if(error){
-                console.log(error.message())
+                console.log(error.message)
                 return
             }
             console.log('Create Table Animal Image')
@@ -104,7 +104,7 @@ class Tables {
     `;
     this.connection.query(sql,(error:any)=>{
             if(error){
-                console.log(error.message())
+                console.log(error.message)
                 return
             }
             console.log('Create Table Animal Location')

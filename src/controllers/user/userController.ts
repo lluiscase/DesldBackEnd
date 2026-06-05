@@ -4,14 +4,17 @@ class UserController{
     usersGet(){
         return userModel.getAll()
     }
+    userGetId(id:number){
+        return userModel.getId(id)
+    }
     userCreate(newUser:CreateUser): Promise<unknown>{
         return userModel.create(newUser)
     }
-    userUpdate(id:number){
-
+    userUpdate(userUpdated:CreateUser,id:number){
+        return userModel.update(userUpdated,id)
     }
     userDelete(id:number){
-
+        return userModel.delete(id)
     }
 }
 
