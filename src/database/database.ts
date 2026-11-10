@@ -1,10 +1,10 @@
 const mysql = require('mysql2')
 const connection = mysql.createConnection({
-    host:"localhost",
-    port:3306, //Pode mudar dependendo de como você configurou
-    user:"root", //Pode mudar dependendo de como você configurou
-    password:"root", //Pode mudar dependendo de como você configurou
-    database:"desld" //Pode mudar dependendo de como você configurou
+    host: process.env.DB_HOST || "localhost",
+    port: Number(process.env.DB_PORT) || 3306,
+    user: process.env.DB_USER || "root",
+    password: process.env.DB_PASSWORD || "root",
+    database: process.env.DB_NAME || "desld"
 })
 
 export default connection
