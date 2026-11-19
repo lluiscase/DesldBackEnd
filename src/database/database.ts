@@ -1,10 +1,16 @@
-const mysql = require('mysql2')
-const connection = mysql.createConnection({
+import dotenv from 'dotenv';
+dotenv.config();
+import mysql from 'mysql2';
+
+const connection = mysql.createPool({
     host: process.env.DB_HOST || "localhost",
     port: Number(process.env.DB_PORT) || 3306,
     user: process.env.DB_USER || "root",
     password: process.env.DB_PASSWORD || "root",
-    database: process.env.DB_NAME || "desld"
-})
+    database: process.env.DB_NAME || "desld",
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+});
 
-export default connection
+export default connection;
