@@ -1,22 +1,38 @@
-import { Request,Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import multer from "multer";
+import path from "path";
+import fs from "fs";
 
-export function validateId(req: Request, res: Response, next: Function) {
-    const { id } = req.params;
+export { authMiddleware, optionalAuthMiddleware } from "../middlewares/auth";
 
-    if (!id || isNaN(Number(id))) {
-        return res.status(400).json({ message: "Invalid id" });
-    }
-    next();
+export function validateId(req: Request, res: Response, next: NextFunction) {
+  const { id } = req.params;
+
+  if (!id || isNaN(Number(id))) {
+    return res.status(400).json({ message: "Invalid id" });
+  }
+  next();
+}
+
+const uploadsDir = path.resolve(process.cwd(), "uploads");
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
+  destination: (_req, _file, cb) => {
     cb(null, "uploads/");
   },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
+  filename: (_req, file, cb) => {
+    const ext = path.extname(file.originalname) || ".jpg";
+    const safeName = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}${ext}`;
+    cb(null, safeName);
   }
 });
 
-export const upload = multer({storage})
+export const upload = multer({
+  storage,
+  limits: {
+    fileSize: 10 * 1024 * 1024 // 10MB por foto
+  }
+});

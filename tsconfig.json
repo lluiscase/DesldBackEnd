@@ -10,6 +10,7 @@
     "strict": true,
     "sourceMap": true,
     "outDir": "./dist",
+    "types": ["node"],
     "ignoreDeprecations": "6.0"
   },
   "include": ["server.ts", "src/**/*.ts"]

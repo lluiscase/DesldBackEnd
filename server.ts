@@ -1,20 +1,47 @@
-import router from "./src/routers";
-import express from "express";
-import fs from "fs";
-import connection from "./src/database/database";
-import tables from "./src/database/tables";
-const app = express()
-const port = Number(process.env.PORT) || 4000
+import dotenv from 'dotenv';
+dotenv.config();
+import express from 'express';
+import cors from 'cors';
+import fs from 'fs';
+import path from 'path';
+import connection from './src/database/database';
+import tables from './src/database/tables';
+import router from './src/routers';
 
-fs.mkdirSync('uploads', { recursive: true })
+const app = express();
+const port = Number(process.env.PORT) || 4000;
 
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
-app.use('/uploads', express.static('uploads'))
+// Garante que o diretório de uploads exista
+const uploadsDir = path.resolve(process.cwd(), 'uploads');
+fs.mkdirSync(uploadsDir, { recursive: true });
 
-tables.init(connection)
-router(app)
+// Habilita CORS para permitir conexões de Web, Emuladores e Dispositivos Móveis
+app.use(cors());
 
-app.listen(port, ()=>{
-    console.log('The server is running')
-})
+// Configura body parsers com limite adequado para imagens base64 (triagem IA)
+app.use(express.json({ limit: '20mb' }));
+app.use(express.urlencoded({ extended: true, limit: '20mb' }));
+
+// Expõe a pasta de uploads publicamente
+app.use('/uploads', express.static(uploadsDir));
+
+// Rota raiz de healthcheck
+app.get('/', (_req, res) => {
+  res.status(200).json({
+    status: 'online',
+    service: 'AuHelp Back-end API',
+    version: '1.0.0'
+  });
+});
+
+// Inicializa tabelas e migrações no banco de dados
+tables.init(connection);
+
+// Inicializa rotas
+router(app);
+
+app.listen(port, () => {
+  console.log(`AuHelp Backend running at http://localhost:${port}`);
+});
+
+export default app;
